@@ -19,6 +19,7 @@
      <a class="px-2 py-1 mt-1 text-decoration-none d-block" href="{{ route('admin.user.index') }}"><i
              class="fas fa-users"></i>
          User</a>
-     <a class="px-2 py-1 mt-1 text-decoration-none d-block" href=""><i class=" fas fa-tools"></i> Web
+     <a class="px-2 py-1 mt-1 text-decoration-none d-block" href="{{ route('admin.websetting.index') }}"><i
+             class=" fas fa-tools"></i> Web
          Setting</a>
  </nav>
