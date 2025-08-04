@@ -10,7 +10,12 @@
 
              </a>
              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                 <a class="dropdown-item" href="">logout</a>
+                 <form method="POST" action="{{ route('logout') }}">
+                     @csrf
+
+                     <button type="submit" class="btn btn-danger"> logout </button>
+                 </form>
+
              </div>
          </span>
      </span>
