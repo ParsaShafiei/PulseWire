@@ -81,8 +81,8 @@ class UserController extends Controller
 
     public function changePermission(User $user)
     {
-        if ($user->permission_id == 1) {
-            $user->permission_id = 2;
+        if ($user->is_admin == 1) {
+            $user->permission_id = 0;
         } else {
             $user->permission_id = 1;
         }

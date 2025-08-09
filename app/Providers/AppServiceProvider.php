@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Menu;
+use App\Models\SiteSetting;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $setting = SiteSetting::first();
+        view()->share('setting', $setting);
+        $menus = Menu::whereNull('parent_id')->get();
+        view()->share('menus', $menus);
     }
 }

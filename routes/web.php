@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WebSetting;
+use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\CheckAdmin;
 use App\Models\SiteSetting;
@@ -15,9 +16,9 @@ use App\Models\User;
 use Dom\Comment;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Route::get('/', function () {
+//     return view('welcome');
+// })->name('home');
 
 
 
@@ -43,3 +44,6 @@ Route::prefix('admin')->middleware(CheckAdmin::class, 'verified')->name('admin.'
 });
 Route::patch('/admin/comments/{comment}/approve', [CommentController::class, 'approve'])->name('admin.comments.approve');
 Route::patch('/admin/comments/{comment}/unapprove', [CommentController::class, 'unapprove'])->name('admin.comments.unapprove');
+
+//Home Routes
+Route::get('/', [HomeController::class, 'index'])->name('home');
