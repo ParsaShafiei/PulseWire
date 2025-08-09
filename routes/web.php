@@ -9,21 +9,22 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WebSetting;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\CheckAdmin;
 use App\Models\SiteSetting;
 use App\Models\User;
 use Dom\Comment;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
 
 
 
 require __DIR__ . '/auth.php';
 
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->middleware(CheckAdmin::class, 'verified')->name('admin.')->group(function () {
     Route::get('/', DashboardController::class);
     Route::resource('category', CategoryController::class);
     Route::resource('post', PostController::class);

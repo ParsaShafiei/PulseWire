@@ -31,20 +31,27 @@
                         <td>{{ $user->name }}</td>
                         <td> {{ $user->email }} </td>
                         <td>Password</td>
-                        <td> {{ $user->permission->name }} </td>
+                        <td>
+                            @if ($user->is_admin == 1)
+                                Admin
+                            @else
+                                User
+                            @endif
+                        </td>
                         <td>{{ $user->created_at }}</td>
                         <td>
-                            @if ($user->permission->name == 'admin')
+                            @if ($user->is_admin == 1)
                                 <a role="button" class="text-white btn btn-sm btn-warning"
                                     href="{{ route('admin.user.changestatus', $user) }}">click not to be
                                     admin</a>
-                            @elseif ($user->permission->name == 'guest')
+                            @elseif ($user->is_admin == 0)
                                 <a role="button" class="text-white btn btn-sm btn-success"
                                     href="{{ route('admin.user.changestatus', $user) }}">click to be
                                     admin</a>
                             @endif
                             <a role="button" class="text-white btn btn-sm btn-primary"
                                 href="{{ route('admin.user.edit', $user) }}">edit</a>
+
 
                             <form action="{{ route('admin.user.destroy', $user) }}" method="POST">
                                 @csrf
