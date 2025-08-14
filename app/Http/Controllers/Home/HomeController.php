@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use App\Models\Category;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,19 +14,25 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $breakingNews = Post::where('breaking_news', 1)->orderBy('created_at', 'desc')->limit('1')->first();
-        $latestNews = Post::orderBy('created_at', 'desc')->limit(6)->get();
         $popularNews = Post::orderBy('view', 'desc')->limit(3)->get();
         $bodybanner = Banner::orderBy('created_at', 'desc')->limit(1)->first();
         // dd($popularNews);
-        return view('app.index', compact('breakingNews', 'latestNews', 'popularNews', 'bodybanner'));
+        return view('app.index', compact('popularNews', 'bodybanner'));
     }
     public function show(Post $post)
     {
         $post->increment('view');
         return view('app.show', compact('post'));
     }
-    public function category() {}
+    public function category(Category $category)
+    {
+        $category->load('posts');
+
+        $latestNews = $category->posts()->latest()->limit(6)->get();
+        $popularNews = Post::where('category_id', $category->id)->get();
+        // dd($popularNews);
+        return view('app.category', compact('category', 'latestNews', 'popularNews'));
+    }
 
     public function commentStore(Post $post, Request $request)
     {

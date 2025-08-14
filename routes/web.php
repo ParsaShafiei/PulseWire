@@ -49,3 +49,4 @@ Route::patch('/admin/comments/{comment}/unapprove', [CommentController::class, '
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/show/{post}', [HomeController::class, 'show'])->name('show');
 Route::post('/comment/store/{post}', [HomeController::class, 'commentStore'])->name('commentStore');
+Route::get('category/{category}', [HomeController::class, 'category'])->name('category');

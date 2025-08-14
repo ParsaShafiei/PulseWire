@@ -32,5 +32,7 @@ class AppServiceProvider extends ServiceProvider
         view()->share('topSelectedPosts', $topSelectedPosts);
         $mostCommentedPosts = Post::withCount('comments')->orderBy('comments_count', 'desc')->limit(5)->get();
         view()->share('mostCommentedPosts', $mostCommentedPosts);
+        $breakingNews = Post::where('breaking_news', 1)->orderBy('created_at', 'desc')->limit('1')->first();
+        view()->share('breakingNews', $breakingNews);
     }
 }
