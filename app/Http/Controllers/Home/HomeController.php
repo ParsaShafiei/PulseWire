@@ -6,18 +6,41 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $topSelectedPosts = Post::where('selected', 1)->orderby('created_at', 'desc')->limit(3)->get();
         $breakingNews = Post::where('breaking_news', 1)->orderBy('created_at', 'desc')->limit('1')->first();
         $latestNews = Post::orderBy('created_at', 'desc')->limit(6)->get();
         $popularNews = Post::orderBy('view', 'desc')->limit(3)->get();
         $bodybanner = Banner::orderBy('created_at', 'desc')->limit(1)->first();
-        return view('app.index', compact('topSelectedPosts', 'breakingNews', 'latestNews', 'popularNews', 'bodybanner'));
+        // dd($popularNews);
+        return view('app.index', compact('breakingNews', 'latestNews', 'popularNews', 'bodybanner'));
     }
-    public function show() {}
+    public function show(Post $post)
+    {
+        $post->increment('view');
+        return view('app.show', compact('post'));
+    }
     public function category() {}
+
+    public function commentStore(Post $post, Request $request)
+    {
+        if (Auth::check()) {
+            $request->validate([
+                'body' => 'required|min:3|max:1000'
+            ]);
+            $inputs = $request->all();
+            $inputs['user_id'] = Auth::user()->id;
+            $inputs['post_id'] = $post->id;
+            // dd($inputs);
+            Comment::create($inputs);
+            return back();
+        } else {
+            return back();
+        }
+    }
 }

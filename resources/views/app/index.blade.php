@@ -61,22 +61,22 @@
                         <div class="mt-10 single-top-post">
                             <div class="relative feature-image-thumb">
                                 <div class="overlay overlay-bg"></div>
-                                <img class="img-fluid" src="{{ asset(trim($topSelectedPosts[2]->image, '\/')) }}"
+                                <img class="img-fluid" src="{{ asset(trim($topSelectedPosts[1]->image, '\/')) }}"
                                     alt="">
                             </div>
                             <div class="top-post-details">
                                 <ul class="tags">
-                                    <li><a href="#">{{ $topSelectedPosts[2]->category->name }}</a></li>
+                                    <li><a href="#">{{ $topSelectedPosts[1]->category->name }}</a></li>
                                 </ul>
                                 <a href="image-post.html">
-                                    <h4>{{ $topSelectedPosts[2]->title }}</h4>
+                                    <h4>{{ $topSelectedPosts[1]->title }}</h4>
                                 </a>
                                 <ul class="meta">
                                     <li><a href="#"><span
-                                                class="lnr lnr-user"></span>{{ $topSelectedPosts[2]->user->name }}</a></li>
-                                    <li><a href="#">{{ jdate($topSelectedPosts[2]->created_at)->format('%B %d %Y') }}<span
+                                                class="lnr lnr-user"></span>{{ $topSelectedPosts[1]->user->name }}</a></li>
+                                    <li><a href="#">{{ jdate($topSelectedPosts[1]->created_at)->format('%B %d %Y') }}<span
                                                 class="lnr lnr-calendar-full"></span></a></li>
-                                    <li><a href="#">{{ $topSelectedPosts[2]->comments->count() }}<span
+                                    <li><a href="#">{{ $topSelectedPosts[1]->comments->count() }}<span
                                                 class="lnr lnr-bubble"></span></a></li>
                                 </ul>
                             </div>
@@ -122,7 +122,7 @@
                                     </ul>
                                 </div>
                                 <div class="col-lg-7 post-right">
-                                    <a href="image-post.html">
+                                    <a href="{{ route('show', $lastNews) }}">
                                         <h4>{{ $lastNews->title }}</h4>
                                     </a>
                                     <ul class="meta">

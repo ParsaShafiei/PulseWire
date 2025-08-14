@@ -47,3 +47,5 @@ Route::patch('/admin/comments/{comment}/unapprove', [CommentController::class, '
 
 //Home Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/show/{post}', [HomeController::class, 'show'])->name('show');
+Route::post('/comment/store/{post}', [HomeController::class, 'commentStore'])->name('commentStore');
